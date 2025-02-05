@@ -103,10 +103,10 @@ def get_instagram_posts(username, max_posts=10):
         return None
 
 
-# 🔹 **STREAMLIT UI**
+#  **STREAMLIT UI**
 st.title("📊 Instagram Sentiment Dashboard")
 
-# 1️⃣ **Login Input**
+# 1**Login Input**
 st.subheader("🔑 Instagram Login")
 instagram_username = st.text_input("Enter your Instagram Username:")
 instagram_password = st.text_input("Enter your Instagram Password:", type="password")
@@ -117,10 +117,10 @@ if st.button("Login"):
     else:
         st.warning("⚠️ Please enter both username and password.")
 
-# 2️⃣ **User Input for Instagram Profile**
+# **User Input for Instagram Profile**
 username = st.text_input("Reenter Instagram Username to Analyze:")
 
-# 3️⃣ **Fetch and Display Data When User Submits**
+#  **Fetch and Display Data When User Submits**
 if username:
     st.subheader(f"📌 Profile Overview: {username}")
 
@@ -136,12 +136,12 @@ if username:
         df = pd.DataFrame(posts)
 
         df["Comment Sentiments"] = df["Comments Sentiments"].apply(
-            lambda x: ", ".join([f"{s} ({c})" for s, c in x]) if x else "No Comments"
+            lambda x: ", ".join([f"{s} ({c})" for s, c in x]) if x else "No Comments" #  creates a formatted string for each tuple (s, c), where s and c are the first and second elements of the tuple
         )
 
         st.dataframe(df[["Date", "Caption", "Caption Sentiment", "Caption Confidence", "Comment Sentiments"]])
 
-        # 4️⃣ **Sentiment Distribution in Comments**
+        # **Sentiment Distribution in Comments**
         st.subheader("📊 Sentiment Distribution in Comments")
 
         all_comment_sentiments = [s for post in df["Comments Sentiments"] for s, _ in post]
@@ -155,14 +155,14 @@ if username:
             plt.title("Sentiment Breakdown in Comments")
             st.pyplot(fig)
 
-        # 5️⃣ **Sentiment Trend Over Time**
+        # **Sentiment Trend Over Time**
         st.subheader("📈 Comment Sentiment Trend Over Time")
 
         df["Date"] = pd.to_datetime(df["Date"])
         df = df.sort_values("Date")
 
         df["Avg Comment Confidence"] = df["Comments Sentiments"].apply(
-            lambda x: np.mean([c for _, c in x]) if x else 0
+            lambda x: np.mean([c for _, c in x]) if x else 0 # extracts the second element (c) from each tuple in 
         )
 
         fig, ax = plt.subplots()

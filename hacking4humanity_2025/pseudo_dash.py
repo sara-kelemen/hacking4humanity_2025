@@ -126,6 +126,7 @@ plt.legend(title="Sentiment")
 st.pyplot(fig)
 
 # NLP TO ADVISE USERS
+<<<<<<< HEAD
 #text_generator = pipeline("text-generation", model="tiiuae/falcon-40b", device=0)
 #response = text_generator("Give five actionable Instagram healthy engagement tips, making sure to combat hate speech and disinformation", max_length=200)
 #st.markdown(response())
@@ -136,3 +137,22 @@ st.markdown("Encourage Constructive Conversations: Approach discussions with an 
 st.markdown('Use Instagram Reports: If you see disinformation and hatespeech, report it to create a safe online space.') 
 st.markdown('Promote Positivity: Like, comment, and engage with inclusive, kind content.')
 st.markdown('Follow and Support Credible Sources: Stay informed with verified sources and use expert knowledge, using fact-checking when necessary.')
+=======
+text_generator = pipeline("text-generation", model="tiiuae/falcon-40b")
+
+# Generate recommendations using Falcon-40B
+def generate_recommendations_falcon():
+    prompt = (
+        "Generate a structured list of five actionable Instagram recommendations "
+        "that encourage positive engagement and reduce negative online interactions. "
+        "Each recommendation should be concise and formatted as a bullet point."
+    )
+    response = text_generator(prompt, max_length=200, num_return_sequences=1)[0]["generated_text"]
+    
+    # Format recommendations into bullets
+    recommendations = "\n".join([f"🔹 {line.strip()}" for line in response.split(".") if line.strip()])
+    return recommendations
+
+st.subheader("🌱 AI-Generated Recommendations for Better Social Media Engagement")
+st.markdown(generate_recommendations_falcon())
+>>>>>>> dce167cdc089499b6d0359d0839da2a7ea5d0541
